@@ -48,7 +48,7 @@ public class TodoController {
     /* Step 18: Command Bean */
     @RequestMapping(value="/add-todo", method = RequestMethod.GET)
     public String showTodo(ModelMap model){
-        model.put("todo", new Todo(0, (String)model.get("name"), "", new Date(), false));
+        model.addAttribute("todo", new Todo(0, (String)model.get("name"), "", new Date(), false));
         return "todo";
     }
 
