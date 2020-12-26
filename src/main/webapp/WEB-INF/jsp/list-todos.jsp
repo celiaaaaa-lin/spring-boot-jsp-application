@@ -17,6 +17,7 @@
                         <th>Description</th>
                         <th>Target Date</th>
                         <th>Is it done?</th>
+                        <th>Delete</th>
                     </tr>
                 </thread>
                 <body>
@@ -25,6 +26,8 @@
                             <td>${todo.desc}</td>
                             <td>${todo.targetDate}<td>
                             <td>${todo.done}<td>
+                            <!-- passing in param to href-->
+                            <td><a type="button" class="btn btn-warning" href="/delete-todo?id=${todo.id}">Delete</a></td>
                         <tr>
                     </c:forEach>
                 </body>
@@ -36,7 +39,7 @@
             ${todos}
             <br/>
             <div>
-                <a class="button" href="/add-todo">Add a Todo</a>
+                <a class="btn" href="/add-todo">Add a Todo</a>
             </div>
             <!-- Load javascript later -->
             <script src="webjars/jquery/1.9.1/jquery.min.js"></script>

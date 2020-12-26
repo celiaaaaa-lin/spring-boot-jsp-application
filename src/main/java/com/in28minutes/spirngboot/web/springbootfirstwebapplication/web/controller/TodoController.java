@@ -17,9 +17,7 @@ public class TodoController {
 
     @Autowired
     TodoService service;
-    /* Step 10
-       Hard-code todos
-     */
+    /* Step 10 List hard-code todos*/
     @RequestMapping(value="/list-todos", method = RequestMethod.GET)
     public String showTodos(ModelMap model){
         String name = (String)model.get("name");
@@ -27,16 +25,22 @@ public class TodoController {
         return "list-todos";
     }
 
-    /* Step 13: Add a to do
-     */
+    /* Step 13: Add a to do*/
     @RequestMapping(value="/add-todo", method = RequestMethod.GET)
     public String showTodo(){
         return "todo";
     }
 
     @RequestMapping(value="/add-todo", method = RequestMethod.POST)
-    public String addTodo(ModelMap model, @RequestParam String desc){
-        service.addTodo((String)model.get("name"), desc, new Date(), false);
+    public String addTodo(ModelMap model, @RequestParam String desc) {
+        service.addTodo((String) model.get("name"), desc, new Date(), false);
+        return "redirect:/list-todos";
+    }
+
+    /* Step 16: Delete a specific todo*/
+    @RequestMapping(value="/delete-todo", method=RequestMethod.GET)
+    public String deleteTodo(@RequestParam int id){
+        service.deleteTodo(id);
         return "redirect:/list-todos";
     }
  }
