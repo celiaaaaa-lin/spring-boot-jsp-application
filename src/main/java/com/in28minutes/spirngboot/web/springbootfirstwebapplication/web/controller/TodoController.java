@@ -48,12 +48,14 @@ public class TodoController {
     /* Step 18: Command Bean */
     @RequestMapping(value="/add-todo", method = RequestMethod.GET)
     public String showTodo(ModelMap model){
-        model.addAttribute("todo", new Todo(0, (String)model.get("name"), "", new Date(), false));
+        // bean to form
+        model.addAttribute("todo", new Todo(0, (String)model.get("name"), "Default Desc", new Date(), false));
         return "todo";
     }
 
     @RequestMapping(value="/add-todo", method = RequestMethod.POST)
     public String addTodo(ModelMap model, Todo todo) {
+        // form to bean
         service.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
         return "redirect:/list-todos";
     }
