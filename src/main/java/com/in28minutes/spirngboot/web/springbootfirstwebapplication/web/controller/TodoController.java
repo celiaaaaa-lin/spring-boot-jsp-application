@@ -5,11 +5,13 @@ import com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.service.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 @Controller
@@ -54,7 +56,10 @@ public class TodoController {
     }
 
     @RequestMapping(value="/add-todo", method = RequestMethod.POST)
-    public String addTodo(ModelMap model, Todo todo) {
+    public String addTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
+        if(result.hasErrors()){
+            return "todo";
+        }
         // form to bean
         service.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
         return "redirect:/list-todos";
