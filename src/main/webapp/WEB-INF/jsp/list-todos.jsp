@@ -8,35 +8,39 @@
             rel="stylesheet">
     </head>
     <body>
-        <H1>Your Todos</H1>
-        <table>
-            <caption> Your todos are</caption>
-            <thread>
-                <tr>
-                    <th>Description</th>
-                    <th>Target Date</th>
-                    <th>Is it done?</th>
-                </tr>
-            </thread>
-            <body>
-                <c:forEach items="${todos}" var="todo">
+        <div class="container">
+            <H1>Your Todos</H1>
+            <table class="table table-striped">
+                <caption> Your todos are</caption>
+                <thread>
                     <tr>
-                        <td>${todo.desc}</td>
-                        <td>${todo.targetDate}<td>
-                        <td>${todo.done}<td>
-                    <tr>
-                </c:forEach>
-            </body>
-        </table>
-        Hi ${name} (Step 12: Session)
-        </br>
-        Here is the list of your todos: (Step 10: Model, Hard-code)
-        <br/>
-        ${todos}
-        <br/>
-        <a href="/add-todo">Add a Todo</a>
-        <!-- Load javascript later -->
-        <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
-        <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+                        <th>Description</th>
+                        <th>Target Date</th>
+                        <th>Is it done?</th>
+                    </tr>
+                </thread>
+                <body>
+                    <c:forEach items="${todos}" var="todo">
+                        <tr>
+                            <td>${todo.desc}</td>
+                            <td>${todo.targetDate}<td>
+                            <td>${todo.done}<td>
+                        <tr>
+                    </c:forEach>
+                </body>
+            </table>
+            Hi ${name} (Step 12: Session)
+            </br>
+            Here is the list of your todos: (Step 10: Model, Hard-code)
+            <br/>
+            ${todos}
+            <br/>
+            <div>
+                <a class="button" href="/add-todo">Add a Todo</a>
+            </div>
+            <!-- Load javascript later -->
+            <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+            <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        </div>
     </body>
 </html>
