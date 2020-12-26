@@ -1,5 +1,6 @@
 package com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.controller;
 
+import com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.model.Todo;
 import com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,13 +27,13 @@ public class TodoController {
     }
 
     /* Step 13: Add a to do*/
-    @RequestMapping(value="/add-todo", method = RequestMethod.GET)
-    public String showTodo(){
+    @RequestMapping(value="/add-todo13", method = RequestMethod.GET)
+    public String showTodo13(){
         return "todo";
     }
 
-    @RequestMapping(value="/add-todo", method = RequestMethod.POST)
-    public String addTodo(ModelMap model, @RequestParam String desc) {
+    @RequestMapping(value="/add-todo13", method = RequestMethod.POST)
+    public String addTodo13(ModelMap model, @RequestParam String desc) {
         service.addTodo((String) model.get("name"), desc, new Date(), false);
         return "redirect:/list-todos";
     }
@@ -41,6 +42,19 @@ public class TodoController {
     @RequestMapping(value="/delete-todo", method=RequestMethod.GET)
     public String deleteTodo(@RequestParam int id){
         service.deleteTodo(id);
+        return "redirect:/list-todos";
+    }
+
+    /* Step 18: Command Bean */
+    @RequestMapping(value="/add-todo", method = RequestMethod.GET)
+    public String showTodo(ModelMap model){
+        model.put("todo", new Todo(0, (String)model.get("name"), "", new Date(), false));
+        return "todo";
+    }
+
+    @RequestMapping(value="/add-todo", method = RequestMethod.POST)
+    public String addTodo(ModelMap model, Todo todo) {
+        service.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
         return "redirect:/list-todos";
     }
  }
