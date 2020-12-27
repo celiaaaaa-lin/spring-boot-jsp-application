@@ -30,7 +30,7 @@ public class TodoController {
     /* Step 10 List hard-code todos*/
     @RequestMapping(value="/list-todos", method = RequestMethod.GET)
     public String showTodos(ModelMap model){
-        String name = (String)model.get("name");
+        String name = getLoggedInUserName(model);
         model.put("todos", service.retrieveTodos(name));
         return "list-todos";
     }
@@ -43,7 +43,9 @@ public class TodoController {
 
     @RequestMapping(value="/add-todo13", method = RequestMethod.POST)
     public String addTodo13(ModelMap model, @RequestParam String desc) {
-        service.addTodo((String) model.get("name"), desc, new Date(), false);
+        // service.addTodo((String) model.get("name"), desc, new Date(), false);
+        // Step 22: Refactor login
+        service.addTodo(getLoggedInUserName(model), desc, new Date(), false);
         return "redirect:/list-todos";
     }
 
@@ -68,7 +70,9 @@ public class TodoController {
             return "todo";
         }
         // form to bean
-        service.addTodo((String) model.get("name"), todo.getDesc(), todo.getTargetDate(), false);
+        //service.addTodo((String) model.get("name"), todo.getDesc(), todo.getTargetDate(), false);
+        // Step 22: Refactor login
+        service.addTodo(getLoggedInUserName(model), todo.getDesc(), todo.getTargetDate(), false);
         return "redirect:/list-todos";
     }
 
@@ -84,7 +88,9 @@ public class TodoController {
     public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result){
 
         // Step 19: Hard-code user to get around null user exception
-        todo.setUser((String) model.get("name"));
+        // todo.setUser((String) model.get("name"));
+        // Step 22: Refactor login
+        todo.setUser(getLoggedInUserName(model));
 
         if(result.hasErrors()){
             return "todo";
@@ -92,5 +98,9 @@ public class TodoController {
         // form to bean
         service.updateTodo(todo);
         return "redirect:/list-todos";
+    }
+
+    private String getLoggedInUserName(ModelMap model) {
+        return (String) model.get("name");
     }
  }

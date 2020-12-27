@@ -40,7 +40,7 @@ public class LoginController {
        show welcome page after submission
      */
     @RequestMapping(value="/login07", method = RequestMethod.GET)
-    public String showLoginPage(ModelMap model){
+    public String showLoginPage07(ModelMap model){
         return "login";
     }
     @RequestMapping(value="/login07", method = RequestMethod.POST)
@@ -78,12 +78,12 @@ public class LoginController {
        Add @SessionAttributes
     */
 
-    @RequestMapping(value="/login", method = RequestMethod.GET)
+    @RequestMapping(value="/login10", method = RequestMethod.GET)
     public String showLoginPage10(ModelMap model){
         return "login";
     }
 
-    @RequestMapping(value="/login", method = RequestMethod.POST)
+    @RequestMapping(value="/login10", method = RequestMethod.POST)
     public String showWelcomePage10(ModelMap model, @RequestParam String name, @RequestParam String password){
         boolean isValidUser = service.validateUser(name,password);
         if (!isValidUser){
@@ -95,4 +95,12 @@ public class LoginController {
         return "welcome";
     }
 
+    /* Step 22 Spring Security
+    *
+    * */
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public String showLoginPage(ModelMap model){
+        model.put("name", "Celia");
+        return "welcome";
+    }
 }
