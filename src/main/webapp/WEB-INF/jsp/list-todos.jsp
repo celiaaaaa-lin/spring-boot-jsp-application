@@ -17,6 +17,7 @@
                         <th>Description</th>
                         <th>Target Date</th>
                         <th>Is it done?</th>
+                        <th>Update</th>
                         <th>Delete</th>
                     </tr>
                 </thread>
@@ -27,6 +28,7 @@
                             <td>${todo.targetDate}<td>
                             <td>${todo.done}<td>
                             <!-- passing in param to href-->
+                            <td><a type="button" class="btn btn-success" href="/update-todo?id=${todo.id}">Update</a></td>
                             <td><a type="button" class="btn btn-warning" href="/delete-todo?id=${todo.id}">Delete</a></td>
                         <tr>
                     </c:forEach>

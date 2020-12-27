@@ -22,6 +22,8 @@
             -->
             <!-- Step 18: Command Bean -->
             <form:form method="post" modelAttribute="todo">
+                <!-- Step 19: Hidden field which contains id and resolve null id issue on return-->
+                <form:hidden path="id"/>
                 <fieldset class="form-group">
                     <form:label path="desc">Description</form:label>
                     <form:input path="desc" type="text" class="form-control" required="required"/>

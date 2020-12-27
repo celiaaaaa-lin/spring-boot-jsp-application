@@ -64,4 +64,26 @@ public class TodoController {
         service.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
         return "redirect:/list-todos";
     }
+
+    /* Step 19: Update todo */
+    @RequestMapping(value="/update-todo", method= RequestMethod.GET)
+    public String showUpdateTodo(@RequestParam int id, ModelMap model){
+        Todo todo = service.retrieveTodo(id);
+        model.put("todo", todo);
+        return "todo";
+    }
+
+    @RequestMapping(value="/update-todo", method= RequestMethod.POST)
+    public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result){
+
+        // Step 19: Hard-code user to get around null user exception
+        todo.setUser((String) model.get("name"));
+
+        if(result.hasErrors()){
+            return "todo";
+        }
+        // form to bean
+        service.updateTodo(todo);
+        return "redirect:/list-todos";
+    }
  }
