@@ -2,6 +2,8 @@ package com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.control
 
 import com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -100,7 +102,18 @@ public class LoginController {
     * */
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String showLoginPage(ModelMap model){
-        model.put("name", "Celia");
+        // Step 24: Use login
+        model.put("name", getLoggedInUserName());
         return "welcome";
+    }
+
+    // Get login from Spring security
+    private String getLoggedInUserName(){
+        Object principal =
+            SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails){
+            return ((UserDetails)principal).getUsername();
+        }
+        return principal.toString();
     }
 }
