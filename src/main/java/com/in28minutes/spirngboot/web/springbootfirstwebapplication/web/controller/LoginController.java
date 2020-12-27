@@ -78,12 +78,12 @@ public class LoginController {
        Add @SessionAttributes
     */
 
-    @RequestMapping(value="/login10", method = RequestMethod.GET)
+    @RequestMapping(value="/login", method = RequestMethod.GET)
     public String showLoginPage10(ModelMap model){
         return "login";
     }
 
-    @RequestMapping(value="/login10", method = RequestMethod.POST)
+    @RequestMapping(value="/login", method = RequestMethod.POST)
     public String showWelcomePage10(ModelMap model, @RequestParam String name, @RequestParam String password){
         boolean isValidUser = service.validateUser(name,password);
         if (!isValidUser){
