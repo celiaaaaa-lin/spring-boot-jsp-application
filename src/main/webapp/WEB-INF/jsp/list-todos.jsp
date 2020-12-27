@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html>
     <head>
@@ -10,6 +11,10 @@
     <body>
         <div class="container">
             <H1>Your Todos</H1>
+            Hi ${name} (Step 12: Session)
+            </br>
+            Here is the list of your todos: (Step 10: Model, Hard-code)
+            <br/>
             <table class="table table-striped">
                 <caption> Your todos are</caption>
                 <thread>
@@ -25,8 +30,10 @@
                     <c:forEach items="${todos}" var="todo">
                         <tr>
                             <td>${todo.desc}</td>
-                            <td>${todo.targetDate}<td>
-                            <td>${todo.done}<td>
+                            <td><fmt:formatDate pattern="dd/MM/yyyy"
+                            									value="${todo.targetDate}" />
+                            </td>
+                            <td>${todo.done}</td>
                             <!-- passing in param to href-->
                             <td><a type="button" class="btn btn-success" href="/update-todo?id=${todo.id}">Update</a></td>
                             <td><a type="button" class="btn btn-warning" href="/delete-todo?id=${todo.id}">Delete</a></td>
@@ -34,12 +41,6 @@
                     </c:forEach>
                 </body>
             </table>
-            Hi ${name} (Step 12: Session)
-            </br>
-            Here is the list of your todos: (Step 10: Model, Hard-code)
-            <br/>
-            ${todos}
-            <br/>
             <div>
                 <a class="btn" href="/add-todo">Add a Todo</a>
             </div>

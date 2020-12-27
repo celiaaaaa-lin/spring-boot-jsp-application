@@ -3,20 +3,27 @@ package com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.control
 import com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.model.Todo;
 import com.in28minutes.spirngboot.web.springbootfirstwebapplication.web.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
 @SessionAttributes("name")
 public class TodoController {
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                dateFormat, false));
+    }
 
     @Autowired
     TodoService service;
@@ -61,7 +68,7 @@ public class TodoController {
             return "todo";
         }
         // form to bean
-        service.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
+        service.addTodo((String) model.get("name"), todo.getDesc(), todo.getTargetDate(), false);
         return "redirect:/list-todos";
     }
 
